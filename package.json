@@ -1,0 +1,11 @@
+{
+  "name": "whos_that_pokemon",
+  "type": "module",
+  "packageManager": "yarn@4.1.1",
+  "scripts": {
+    "start": "yarn node index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
