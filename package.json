@@ -1,5 +1,5 @@
 {
-  "name": "whos_that_blank",
+  "name": "guess_that_anime",
   "type": "module",
   "packageManager": "yarn@4.1.1",
   "scripts": {
