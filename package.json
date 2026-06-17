@@ -1,5 +1,5 @@
 {
-  "name": "whos_that_pokemon",
+  "name": "whos_that_blank",
   "type": "module",
   "packageManager": "yarn@4.1.1",
   "scripts": {
