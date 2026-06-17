@@ -1,13 +1,18 @@
 import express from "express";
+import { getTopAnimeFromYear } from "./anilist.js";
 
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+let currentCharacter = "";
+let currentAnswer = "";
 
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
+app.get("/game/start", async (req, res) => {
+  const animeList = await getTopAnimeFromYear();
+
+  res.json({
+    anime: animeList,
+  });
 });
 
 app.listen(port, () => {
