@@ -11,6 +11,7 @@ async function getTopAnimeFromYear() {
     query ($year: Int) {
       Page(page: 1, perPage: 20) {
         media(type: ANIME, seasonYear: $year, sort: POPULARITY_DESC) {
+          id
           title {
             english
             romaji
@@ -39,15 +40,6 @@ async function getTopAnimeFromYear() {
   return data.data.Page.media;
 }
 
-
-// Add this below your getTopAnimeFromYear() function   
-  // Step 1: Write the GraphQL query (copy from earlier) complete
-  // Step 2: Send a POST request to https://graphql.anilist.co I don't know how to parse a response
-  // Step 3: Parse the response
-  // Step 4: Filter only MAIN characters
-  // Step 5: Return an object with anime title + characters array
-
-
 async function getMainCharacters(animeId) {
   const query = `
     query ($id: Int) {
@@ -57,17 +49,10 @@ async function getMainCharacters(animeId) {
           romaji
           english
         }
-        characters(sort: ROLE, perPage: 10) {
-          edges {
-            role
-            node {
-              id
-              name {
-                full
-              }
-              image {
-                large
-              }
+        characters(role: MAIN, sort: FAVOURITES_DESC, perPage: 10) {
+          nodes {
+            name {
+              full
             }
           }
         }
@@ -80,11 +65,13 @@ async function getMainCharacters(animeId) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: query,
-      variables: { id: animeId }
-    })
+      variables: { id: animeId },
+    }),
   });
 
+  const data = await response.json();
 
-
+  return data.data.Media;
+}
 
 export { getTopAnimeFromYear, getMainCharacters };
