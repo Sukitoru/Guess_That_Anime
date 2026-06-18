@@ -1,17 +1,20 @@
 import express from "express";
-import { getTopAnimeFromYear } from "./anilist.js";
+import { getTopAnimeFromYear, getMainCharacters } from "./anilist.js";
 
 const app = express();
 const port = 3000;
+
+let game 
 
 let currentCharacter = "";
 let currentAnswer = "";
 
 app.get("/game/start", async (req, res) => {
-  const animeList = await getTopAnimeFromYear();
+  const animeId = await getMainCharacters(113415);
 
   res.json({
-    anime: animeList,
+    id: animeId
+    // anime: animeList,
   });
 });
 
