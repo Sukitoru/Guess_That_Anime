@@ -17,8 +17,15 @@ app.get("/game/start", async (req, res) => {
 
   const animeWithCharacters = await getMainCharacters(anime.id);
 
+  const characterList = animeWithCharacters.characters.nodes;
+
+  const randomCharacterIndex = Math.floor(Math.random() * characterList.length);
+
+  const randomCharacter = characterList[randomCharacterIndex];
+
   res.json({
-    anime: animeWithCharacters,
+    character: randomCharacter.name.full,
+    question: "What anime is this character from?"
   });
 });
 
